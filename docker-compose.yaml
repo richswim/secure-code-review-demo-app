@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  ollama-container:
+    image: ollama/ollama
+    volumes:
+      - ./data/ollama:/root/.ollama
+    ports:
+      - "11434:11434"
+
+  chroma:
+    image: ghcr.io/chroma-core/chroma:latest
+    volumes:
+      - index_data:/chroma/.chroma/index
+    ports:
+      - "8000:8000"
+
+  secure-code-app:
+    tty: true
+    build:
+      context: .
+      dockerfile: docker/secure_code_app/Dockerfile
+      network: host
+
+    stdin_open: true
+    ports:
+      - "8501:8501"
+    command: ["streamlit", "run", "code_reviewer/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+    platform: linux/amd64
+    volumes:
+      - type: bind
+        source: /Users/ricardo/DEV/secure-code-review-demo-app/code_reviewer
+        target: /app/code_reviewer
+
+volumes:
+  index_data:
+    driver: local
+  backups:
+    driver: local

@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+bandit="*"
+chromadb="*"
+faiss-cpu="*"
+fastembed="*"
+flask="*"
+langchain = "*"
+langchain-community= "*"
+langchain-openai="*"
+openai="*"
+python-dotenv="*"
+streamlit="*"
+streamlit_chat="*"
+tiktoken="*"
+unstructured={version="*", extras=["md"]}
+watchdog="*"
+werkzeug="*"
+
+[dev-packages]
+pytest = "*"
+
+[requires]
+python_version = "3.11.8"
